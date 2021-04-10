@@ -84,6 +84,7 @@ async function createTestData(size = 10000) {
         faker.datatype.number({ min: 40, max: 100 }),
         donor.birthdate,
         donor.sex,
+        donor.bloodGroup.name,
       ]);
     }
 
@@ -119,6 +120,7 @@ async function createTestData(size = 10000) {
       faker.datatype.number({ min: 40, max: 100 }),
       patient.birthdate,
       patient.sex,
+      patient.bloodGroup.name,
     ]);
   }
 
@@ -149,11 +151,11 @@ async function createTestData(size = 10000) {
     await connection.query(query, [kidneyDonors]);
     console.log(`Donadores ingresados`);
 
-    query = `INSERT INTO test_info(patient_id,ant1,ant2,ant3,ant4,ant5,ant6,weight,birthdate,sex) VALUES ?`;
+    query = `INSERT INTO test_info(patient_id,ant1,ant2,ant3,ant4,ant5,ant6,weight,birthdate,sex,bloodgroup) VALUES ?`;
     await connection.query(query, [patientTests]);
     console.log(`Examen paciente ingresados`);
 
-    query = `INSERT INTO test_info(donor_id,ant1,ant2,ant3,ant4,ant5,ant6,weight,birthdate,sex) VALUES ?`;
+    query = `INSERT INTO test_info(donor_id,ant1,ant2,ant3,ant4,ant5,ant6,weight,birthdate,sex,bloodgroup) VALUES ?`;
     await connection.query(query, [donorTests]);
     console.log(`Examen donador ingresados`);
   }, 1);

@@ -9,6 +9,7 @@ const { platform } = require("os");
 const faker = require("faker");
 const { query } = require("express");
 const { default: axios } = require("axios");
+const parseArgs = require("minimist");
 
 faker.locale = "es_MX";
 
@@ -300,7 +301,9 @@ async function getRandomImageURL(gender) {
   return res.data.image_url;
 }
 
+const args = parseArgs(process.argv.slice(2));
+const { count = 100 } = args;
+
 setTimeout(async () => {
-  // await addAntigenos(new Patient(nanoid(11), new BloodGroup("A+")));
-  await createTestData(1000);
+  await createTestData(count);
 }, 1000);

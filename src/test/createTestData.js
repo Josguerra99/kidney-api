@@ -302,5 +302,5 @@ async function getRandomImageURL(gender) {
 
 setTimeout(async () => {
   // await addAntigenos(new Patient(nanoid(11), new BloodGroup("A+")));
-  await createTestData(10000);
+  await createTestData(1000);
 }, 1000);

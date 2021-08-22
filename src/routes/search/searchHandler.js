@@ -30,17 +30,25 @@ const compatibility = asyncHandler(async (req, res, next) => {
 });
 
 const searchForCases = asyncHandler(async (req, res, next) => {
+  const size = 40;
+
   let donors = await main.getPatientDonors(req.params.patientId);
 
   let results = await Promise.all(
-    donors.map((donor) => controller.search(donor.patient, donor, 20))
+    donors.map((donor) => controller.search(donor.patient, donor, size))
   );
 
   const compare = (a, b) => b.compatibility - a.compatibility;
 
   let result = [].concat.apply([], results);
   result.sort(compare);
-  res.status(200).send(result.splice(0, 10));
+
+  if (result.lenght <= size * 0.5) {
+    res.status(200).send(result);
+    return;
+  }
+
+  res.status(200).send(result.splice(0, size * 0.5));
 });
 
 const getCaseInfo = asyncHandler(async (req, res, next) => {

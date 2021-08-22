@@ -144,6 +144,11 @@ async function search(patient, donor, size = 500) {
   let b = performance.now();
 
   cases.sort(compare);
+
+  if (cases.length <= size) {
+    return cases;
+  }
+
   return cases.slice(0, size);
 }
 
